@@ -1,6 +1,6 @@
 {
   "name": "vue-images-slefr",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A simple lightbox component for displaying an array of images",
   "main": "./dist/vue-images.js",
   "author": "change for r",
