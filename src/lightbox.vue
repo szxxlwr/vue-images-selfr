@@ -1,5 +1,6 @@
 <template>
   <div class="vue-images">
+    <div style="height:999px;"></div>
     <gallery :images="images" @changeIndex="changeImg($event)"></gallery>
     <div ref="lightbox" class="lightbox" v-show="isShow" @click="isShow=!modalclose">
       <fancybox ref="fancybox" :images="images" :index="index" :reset="!isShow" @play="playImg" @pause="pauseImg" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg" :showclosebutton="showclosebutton" :showcaption="showcaption" :imagecountseparator="imagecountseparator" :showimagecount="showimagecount"></fancybox>
@@ -52,7 +53,7 @@
       return {
         isShow: false,
         index: 0,
-        htmls: null,
+        scrollTop: 0,
         playTimer: null,
         touchPoint: {
           prev: 0,
@@ -214,17 +215,20 @@
     watch: {
       isShow () {
         if (this.isShow) {
-          // document.body.style.position = 'fixed'
-          document.getElementsByTagName('html')[0].style.overflowY = 'hidden'
-          window.addEventListener('keydown', this.keyFun)
+          this.scrollTop = document.documentElement.scrollTop
+          document.body.style.position = 'fixed'
+          // document.getElementsByTagName('html')[0].style.overflowY = 'hidden'
+          // window.addEventListener('keydown', this.keyFun)
           this.$refs.lightbox.addEventListener('mousewheel', this.wheelFun)
           this.$refs.lightbox.addEventListener('touchstart', this.touchFun)
           this.$refs.lightbox.addEventListener('touchend', this.endFun)
         } else {
           this.pauseImg()
+          document.body.style.position = 'static'
+          document.documentElement.scrollTop = this.scrollTop
           // document.body.style.overflowY = 'auto'
-          document.getElementsByTagName('html')[0].style.overflowY = 'auto'
-          window.removeEventListener('keydown', this.keyFun)
+          // document.getElementsByTagName('html')[0].style.overflowY = 'auto'
+          // window.removeEventListener('keydown', this.keyFun)
           this.$refs.lightbox.removeEventListener('mousewheel', this.wheelFun)
           this.$refs.lightbox.removeEventListener('touchstart', this.touchFun)
           this.$refs.lightbox.removeEventListener('touchend', this.endFun)
