@@ -1,6 +1,6 @@
 <template>
   <div class="vue-images">
-    <div style="height:999px;"></div>
+    <!-- <div style="height:999px;"></div> -->
     <gallery :images="images" @changeIndex="changeImg($event)"></gallery>
     <div ref="lightbox" class="lightbox" v-show="isShow" @click="isShow=!modalclose">
       <fancybox ref="fancybox" :images="images" :index="index" :reset="!isShow" @play="playImg" @pause="pauseImg" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg" :showclosebutton="showclosebutton" :showcaption="showcaption" :imagecountseparator="imagecountseparator" :showimagecount="showimagecount"></fancybox>
@@ -101,7 +101,6 @@
       },
       keyFun (event) {
         event.preventDefault()
-        // console.log('keyFun')
         if (this.keyinput) {
           switch (event.keyCode) {
             case 27:
@@ -147,7 +146,6 @@
       wheelFun (event) {
         if (this.mousescroll) {
           event.stopPropagation()
-          // console.log('wheelFun')
           if (event.deltaY > 0) {
             if (this.index < this.images[this.index].total - 1) {
               if (this.timeout) {
@@ -183,15 +181,11 @@
       },
       touchFun (event) {
         event.stopPropagation()
-        // console.log('touchFun')
-        // console.log(event.touches[0].clientX)
         this.touchPoint.prev = event.touches[0].clientX
       },
       endFun (event) {
         event.stopPropagation()
         this.touchPoint.now = event.changedTouches[0].clientX
-        // console.log('endFun')
-        // console.log(event.changedTouches[0].clientX)
         var that = this
         if (this.touchPoint.prev > this.touchPoint.now + 50) {
           if (this.index < this.images[this.index].total - 1) {
@@ -217,8 +211,6 @@
         if (this.isShow) {
           this.scrollTop = document.documentElement.scrollTop
           document.body.style.position = 'fixed'
-          // document.getElementsByTagName('html')[0].style.overflowY = 'hidden'
-          // window.addEventListener('keydown', this.keyFun)
           this.$refs.lightbox.addEventListener('mousewheel', this.wheelFun)
           this.$refs.lightbox.addEventListener('touchstart', this.touchFun)
           this.$refs.lightbox.addEventListener('touchend', this.endFun)
@@ -226,9 +218,6 @@
           this.pauseImg()
           document.body.style.position = 'static'
           document.documentElement.scrollTop = this.scrollTop
-          // document.body.style.overflowY = 'auto'
-          // document.getElementsByTagName('html')[0].style.overflowY = 'auto'
-          // window.removeEventListener('keydown', this.keyFun)
           this.$refs.lightbox.removeEventListener('mousewheel', this.wheelFun)
           this.$refs.lightbox.removeEventListener('touchstart', this.touchFun)
           this.$refs.lightbox.removeEventListener('touchend', this.endFun)
