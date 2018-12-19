@@ -52,6 +52,7 @@
       return {
         isShow: false,
         index: 0,
+        htmls: null,
         playTimer: null,
         touchPoint: {
           prev: 0,
@@ -212,23 +213,17 @@
     },
     watch: {
       isShow () {
-        console.log(this.isShow)
         if (this.isShow) {
-          // console.log('进来了')
           // document.body.style.position = 'fixed'
-          let html = document.getElementsByTagName("html");
-		      html[0].style.overflowY="hidden"
+          document.getElementsByTagName('html')[0].style.overflowY = 'hidden'
           window.addEventListener('keydown', this.keyFun)
           this.$refs.lightbox.addEventListener('mousewheel', this.wheelFun)
           this.$refs.lightbox.addEventListener('touchstart', this.touchFun)
           this.$refs.lightbox.addEventListener('touchend', this.endFun)
         } else {
           this.pauseImg()
-          // console.log('进来了2')
-          // document.body.style.position = 'static'
           // document.body.style.overflowY = 'auto'
-          let html = document.getElementsByTagName("html");
-		      html[0].style.overflowY="auto"
+          document.getElementsByTagName('html')[0].style.overflowY = 'auto'
           window.removeEventListener('keydown', this.keyFun)
           this.$refs.lightbox.removeEventListener('mousewheel', this.wheelFun)
           this.$refs.lightbox.removeEventListener('touchstart', this.touchFun)
