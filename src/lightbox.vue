@@ -1,6 +1,6 @@
 <template>
   <div class="vue-images">
-    <!-- <div style="height:999px"></div> -->
+    <div style="height:999px"></div>
     <gallery :images="images" @changeIndex="changeImg($event)"></gallery>
     <div ref="lightbox" class="lightbox" v-show="isShow" @click="isShow=!modalclose">
       <fancybox ref="fancybox" :images="images" :index="index" :reset="!isShow" @play="playImg" @pause="pauseImg" @close="closeImg" @addIndex="nextImg" @decIndex="prevImg" :showclosebutton="showclosebutton" :showcaption="showcaption" :imagecountseparator="imagecountseparator" :showimagecount="showimagecount"></fancybox>
@@ -217,6 +217,7 @@
         if (this.isShow) {
           // console.log('进来了')
           // document.body.style.position = 'fixed'
+          document.body.style.overflowY = 'hidden'
           window.addEventListener('keydown', this.keyFun)
           this.$refs.lightbox.addEventListener('mousewheel', this.wheelFun)
           this.$refs.lightbox.addEventListener('touchstart', this.touchFun)
@@ -224,7 +225,8 @@
         } else {
           this.pauseImg()
           // console.log('进来了2')
-          document.body.style.position = 'static'
+          // document.body.style.position = 'static'
+          document.body.style.overflowY = 'auto'
           window.removeEventListener('keydown', this.keyFun)
           this.$refs.lightbox.removeEventListener('mousewheel', this.wheelFun)
           this.$refs.lightbox.removeEventListener('touchstart', this.touchFun)
